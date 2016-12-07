@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { render, shallow, mount } from 'enzyme';
+import {shallow} from 'enzyme';
 import App from './App';
 
 it('renders without crashing', () => {
@@ -25,5 +25,19 @@ it("renders an input with name='last-name'", () => {
 
 it('renders a table with two th one for Nombre and the other for Apellido', () => {
   const wrapper = shallow(<App />)
-  expect(wrapper.find("table tr th").lenght).toBe(2)
+  expect(wrapper.find("table tr th").length).toBe(2)
+})
+
+it('creates a new guest when submitting the form', () => {
+  const wrapper = shallow(<App />)
+  wrapper.find('form').simulate('submit', {preventDefault(){}, target:
+    {
+      'first-name': {value: 'Juan'},
+      'last-name': {value: 'Gomez'},
+      reset: () => {}
+    }
+  })
+  expect(wrapper.find("table tr").length).toBe(2)
+  expect(wrapper.find("td").first().text()).toBe('Juan')
+  expect(wrapper.find("td").last().text()).toBe('Gomez')
 })

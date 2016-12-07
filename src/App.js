@@ -1,67 +1,18 @@
 import React, { Component } from 'react';
 
 class App extends Component {
-  constructor() {
-    super()
-    this.state = {
-      guests: [],
-      errors: {
-        firstName: false,
-        lastName: false
-      }
-    }
-  }
-  validateForm(firstName, lastName) {
-    if (!firstName || !lastName) {
-      this.setState({
-        errors: {
-          firstName: !firstName,
-          lastName: !lastName
-        }
-      })
-      return false
-    }
-    return true
-  }
-  addGuest(event) {
-    event.preventDefault()
-    const firstName = event.target['first-name'].value
-    const lastName = event.target['last-name'].value
-    if (this.validateForm(firstName, lastName)) {
-      const newGuest = {
-        firstName: firstName,
-        lastName: lastName,
-      }
-      this.setState({
-        guests: [...this.state.guests, newGuest],
-        errors: {
-          firstName: false,
-          lastName: false
-        }
-      })
-      event.target.reset()
-    }
-  }
-  renderGuest(guest, index) {
-    return (
-      <tr key={index}>
-        <td>{guest.firstName}</td>
-        <td>{guest.lastName}</td>
-      </tr>
-    )
-  }
   render() {
     return (
       <div className="container">
         <div className="row">
           <div className="col-sm-6 col-sm-offset-3">
-            <form onSubmit={this.addGuest.bind(this)}>
-              <div className={`form-group ${this.state.errors.firstName ? 'has-error' : null}`}>
+            <form>
+              <div className="form-group">
                 <label htmlFor="first-name">Nombre</label>
                 <input type="text" className="form-control" name="first-name" />
               </div>
 
-              <div className={`form-group ${this.state.errors.lastName ? 'has-error' : null}`}>
+              <div className="form-group">
                 <label htmlFor="last-name">Apellido</label>
                 <input type="text" className="form-control" name="last-name" />
               </div>
@@ -79,7 +30,7 @@ class App extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.guests.map(this.renderGuest)}
+
               </tbody>
             </table>
           </div>
